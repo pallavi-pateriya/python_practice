@@ -312,9 +312,29 @@ d2 = {'a': 10, 'b': 25, 'c': 30, 'e': 50}
 l=[]
 common_key = d1.keys() & d2.keys()
 
+print(common_key)
+
 
 for key in common_key:
-  if d1[key]==d2[key]:
+  if d1[key] == d2[key]:
     l.append(key)
 print(l)
+
+
+
+# Q10. Find the union of multiple sets
+# Given a list of sets, return one set containing every distinct value found in any set.
+# Expected input: [{1, 2}, {2, 3, 4}, {4, 5}, {1, 6}]
+# Expected output: {1, 2, 3, 4, 5, 6}
+
+
+def func(args):
+  a=set()
+  for i in args:
+    for value in i:
+      a.add(value)
+  return a
+  
+
+print(func([{1, 2}, {2, 3, 4}, {4, 5}, {1, 6}]))
 
