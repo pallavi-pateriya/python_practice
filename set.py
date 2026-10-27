@@ -6,8 +6,23 @@
 A = {1, 2, 3, 4}
 B = {3, 4, 5, 6}
 
-A = A.union(B)
+A = A^(B)
 print(A)
+
+
+l = []
+for i in A:
+  
+  if i not in B:
+    l.append(i)
+
+for i in B:
+  
+  if i not in A:
+    l.append(i)
+
+print(set(l))
+
 
 # Check whether one set is a proper subset
 # Return True if A is a subset of B and A is not equal to B; otherwise return False.
@@ -96,15 +111,17 @@ print(a)
 # Expected input: a = [1, 2, 2, 3, 4], b = [4, 3, 2, 1, 1]
 # Expected output: True
 
-a = [1, 2, 2, 3, 4]
+a = [1, 2, 5 ,2, 3,4]
 b = [4, 3, 2, 1, 1]
+
 a= set(a)
 b=set(b)
+
+similar = True
 for item in a: 
-  if item in b:
-    similar= True
-  else :
-    similar = False
+  if item not in b:
+    similar= False
+    break
 
 print(similar)
 

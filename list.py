@@ -188,4 +188,12 @@ for item in a:
   if item in b and item in c and item not in result:
     result.append(item)
 print(result)
+
+
+
+
+
+# Return the longest strictly increasing contiguous sublist. If there is a tie, return the first such run.
+# Expected input: [1, 2, 2, 3, 4, 1, 2, 3]
+# Expected output: [2, 3, 4]
   
