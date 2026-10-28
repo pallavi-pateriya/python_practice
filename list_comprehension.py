@@ -62,3 +62,27 @@ numbers = [1, 2, 3, 4, 5, 6]
 l=[i**2 for i in numbers if i%2==0]
 print(l)
 
+
+# From the list, select numbers that are divisible by both 3 and 2, then store their squares.Given data
+
+numbers = [2, 3, 6, 9, 12, 15, 18, 20, 24]
+l=[i for i in numbers if i%2==0 and i%3==0]
+print(l)
+
+
+# Create a list of words that have more than 3 characters and start with a vowel (a, e, i, o, u). Convert them to uppercase.Given data
+
+words = ['apple', 'cat', 'orange', 'elephant', 'dog', 'umbrella', 'ice', 'grapes']
+
+l=[i.upper() for i in words if len(i)>3 and i[0] in 'aeiou']
+print(l)
+
+
+# 3 Flatten a nested list
+
+# Convert the nested list into one flat list containing only numbers greater than 5.Given data
+
+numbers = [[1, 6, 3], [8, 2, 9], [4, 7, 5]]
+
+l=[j for i in numbers for j in i if j>5]
+print(l)
