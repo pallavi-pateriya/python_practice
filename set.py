@@ -1,3 +1,4 @@
+#set coding questions
 # Return values that appear in exactly one of the two sets.
 # Expected input: A = {1, 2, 3, 4}, B = {3, 4, 5, 6}
 # Expected output: {1, 2, 5, 6}
@@ -5,8 +6,23 @@
 A = {1, 2, 3, 4}
 B = {3, 4, 5, 6}
 
-A = A.union(B)
+A = A^(B)
 print(A)
+
+
+l = []
+for i in A:
+  
+  if i not in B:
+    l.append(i)
+
+for i in B:
+  
+  if i not in A:
+    l.append(i)
+
+print(set(l))
+
 
 # Check whether one set is a proper subset
 # Return True if A is a subset of B and A is not equal to B; otherwise return False.
@@ -95,15 +111,17 @@ print(a)
 # Expected input: a = [1, 2, 2, 3, 4], b = [4, 3, 2, 1, 1]
 # Expected output: True
 
-a = [1, 2, 2, 3, 4]
+a = [1, 2, 5 ,2, 3,4]
 b = [4, 3, 2, 1, 1]
+
 a= set(a)
 b=set(b)
+
+similar = True
 for item in a: 
-  if item in b:
-    similar= True
-  else :
-    similar = False
+  if item not in b:
+    similar= False
+    break
 
 print(similar)
 
@@ -311,9 +329,29 @@ d2 = {'a': 10, 'b': 25, 'c': 30, 'e': 50}
 l=[]
 common_key = d1.keys() & d2.keys()
 
+print(common_key)
+
 
 for key in common_key:
-  if d1[key]==d2[key]:
+  if d1[key] == d2[key]:
     l.append(key)
 print(l)
+
+
+
+# Q10. Find the union of multiple sets
+# Given a list of sets, return one set containing every distinct value found in any set.
+# Expected input: [{1, 2}, {2, 3, 4}, {4, 5}, {1, 6}]
+# Expected output: {1, 2, 3, 4, 5, 6}
+
+
+def func(args):
+  a=set()
+  for i in args:
+    for value in i:
+      a.add(value)
+  return a
+  
+
+print(func([{1, 2}, {2, 3, 4}, {4, 5}, {1, 6}]))
 
