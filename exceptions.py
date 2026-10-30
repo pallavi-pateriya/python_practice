@@ -56,4 +56,21 @@ def validate_key(d,k):
            
 validate_key(user,'a')
 
+#custom exception
+
+class MyCustomError(Exception):
+    pass
+
+def divide(a, b):
+    if b == 0:
+        raise MyCustomError("Division by zero is not allowed")
+    return a / b
+  
+
+try:
+    result = divide(10, 2)
+    print(f"Result: {result}")
+except MyCustomError as e:
+    print(f"Caught an error: {e}")
+
 
