@@ -1,0 +1,3 @@
+{"id": 1, "title": "Multithreading", "author": "charley", "quantity": 12}
+{"id": 2, "title": "data structures", "author": "hakuna", "quantity": 4}
+{"id": 3, "title": "computer science", "author": "dr. mohan", "quantity": 1}
