@@ -3,7 +3,7 @@ import json
 
 
 class BankManagementSystem:
-    """manage bank account"""
+    """Manage Bank Account"""
 
     def create_account(self, new_bank):
         """Create a new account and save the customer's details.
