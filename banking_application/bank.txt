@@ -1,0 +1,6 @@
+{"Name": "pallavi", "Age": 34, "Phone Number": "+91-9876543210", "Balance": 71500, "Account Number": 181067150244, "Status": "active"}
+{"Name": "monika", "Age": 45, "Phone Number": "+91-4567890321", "Balance": 5654, "Account Number": 842799781294, "Status": "active"}
+{"Name": "krish", "Age": 20, "Phone Number": "+91-6758675894", "Balance": 58000, "Account Number": 259635353425, "Status": "active"}
+{"Name": "pateriya", "Age": 67, "Phone Number": "+91-9111334765", "Balance": 78000, "Account Number": 306942389947, "Status": "active"}
+{"Name": "shreya", "Age": 34, "Phone Number": "+91-8109813434", "Balance": 78000, "Account Number": 809888841789, "Status": "active"}
+{"Name": "ravi", "Age": 45, "Phone Number": "+91-9876543210", "Balance": 6700, "Account Number": 103537661301, "Status": "active"}
