@@ -1,5 +1,6 @@
-import uuid
 import json
+import random
+
 
 
 class BankManagementSystem:
@@ -8,23 +9,30 @@ class BankManagementSystem:
     def create_account(self, new_bank):
         """Create a new account and save the customer's details.
         Args:
-        new_bank (dict): Account details to be added. """
-
-        new_bank["Account Number"] = int(str(uuid.uuid4().int)[:12])
+            new_bank (dict): Account details to be added. 
+        """
         new_bank["Status"] = "active"
+        with open("bank.txt", "r") as file:
+            content = file.readlines()
+            if len(content) == 0:
+                new_bank["Account Number"] = "".join([str(random.randint(0, 9)) for _ in range(12)])
+            else:
+                last_line = content[-1]
+                last_line = json.loads(last_line)
+                new_bank["Account Number"] = int(last_line["Account Number"]) + 1
+                print(new_bank)
         with open("bank.txt", "a") as file:
             file.write(json.dumps(new_bank) + "\n")
         print("________!!CONGRATULATIONS!!____________")
         print("________Account Created Successfully_____")
         print("______Account Details________")
         print(new_bank)
-        print("")
-
+        
     def view_account_details(self, account_number):
         """Display account details for the given account number.
         Args:
-        account_number (int): Account number to search for."""
-
+            account_number (int): Account number to search for.
+        """
         found = False
         with open("bank.txt", "r") as file:
             for line in file:
@@ -43,8 +51,8 @@ class BankManagementSystem:
         """Deposit money into the specified account.
         Args:
             amount_to_deposit (int): Amount to deposit.
-            account_number (int): Account number to deposit into."""
-
+            account_number (int): Account number to deposit into.
+        """
         current_balance = 0
         found = False
         update_content = []
@@ -64,24 +72,22 @@ class BankManagementSystem:
             print("_______Enter Valid Value_______")
             return
         if not found:
-            print("______Account not found._______")
+            print("_____Account Does Not Exist!______ ")
             return
         else:
             with open("bank.txt", "w") as file:
                 for i in update_content:
                     file.write(json.dumps(i) + "\n")
-            print("______!!Credit Alert!!_____")
+            print("______!!Credit Alert!!______")
             print(f"________Your Account Is Credited By Amount {amount_to_deposit}_______")
             print(f"_________Your Current Balance Is {current_balance}___________")
 
     def withdraw_money(self, amount_to_withdraw, account_number):
         """Withdraw the given amount from the specified account.
-
-    Args:
-        amount_to_withdraw (int): Amount to withdraw.
-        account_number (int): Account number to withdraw from.
-    """
-
+        Args:
+            amount_to_withdraw (int): Amount to withdraw.
+            account_number (int): Account number to withdraw from.
+        """
         found = False
         content = []
         current_balance = 0
@@ -97,109 +103,109 @@ class BankManagementSystem:
                             content.append(account)
                         else:
                             found = True
-                            print(f"Insufficient balance: only {account['Balance']} Rs. available.")
+                            print(f"Insufficient balance: only {account['Balance']} Rs.")
                             return
                     content.append(account)
         if not found:
-            print("__________This Account Does Not Exist___________")
+            print(" _____Account Does Not Exist!______ ")
         else:
             with open("bank.txt", "w") as file:
                 for i in content:
                     file.write(json.dumps(i) + "\n")
-            print("_________!!Debit Alert!!__________")
+            print("______!!Debit Alert!!______")
             print(f"____Your Account Is Debited By Amount {amount_to_withdraw}______")
             print(f"_______Your Current Balance Is {current_balance}_________")
 
     def update_account_details(self, account_number):
         """Update the customer's details for the specified account.
         Args:
-            account_number (int): Account number to update."""
-
+            account_number (int): Account number to update.
+        """
         content = []
         found = False
+        edit_name = ''
+        edit_num = 0
         with open("bank.txt", "r") as file:
             for line in file:
                 if line.strip():
                     account = json.loads(line)
-                    
                     if str(account.get(str("Account Number"))) == str(account_number):
                         found = True
                         print("____Your Account Details Are______")
                         for key, value in account.items():
                             print(f"{key} : {value}")
                         while True:
-                            edit_num = input("Enter New Phone Number: ")
-
-                            if edit_num.isdigit() and len(edit_num) == 10:
-                                account["Phone Number"] = edit_num
+                            name = input("DO You Want To Update Your Name? Say Yes Or No ").lower()
+                            if name == "yes":
+                                edit_name = input("Enter Name: ")
+                                if edit_name:
+                                    account["Name"] = edit_name
+                                    break
+                                else:
+                                    print("Enter Name")
+                            else:
                                 break
-                            elif len(edit_num) < 10:
-                                print("Invalid Phone Number. Please enter exactly 10 digits.") 
-                        edit_name = input("Enter Name: ")
-                        if edit_name:
-                            account["Name"] = edit_name
-                        
+                        while True:
+                            num = input("DO You Want To Update Your Phone Number? Say Yes Or No ").lower()
+                            if num == "yes":
+                                edit_num = input("Enter Phone Number: ")
+                                if edit_num.isdigit() and len(edit_num) == 10:
+                                    account["Phone Number"] = edit_num
+                                    break
+                                elif len(add_phone_number) < 10 or len(add_phone_number) > 10:
+                                    print("Invalid Phone Number. Please enter exactly 10 digits.") 
+                                else:
+                                    print("Enter Phone Number: ")
+                            else:
+                                break
                         content.append(account)
                     else:
                         content.append(account)
         if not found:
-            print("_______This Account Does Not Exist_________")
+            print(" _____Account Does Not Exist!______ ")
             return
         else:
             with open("bank.txt", "w") as file:
                 for i in content:
                     file.write(json.dumps(i) + "\n")
-            print("_____Details Updated Succesfully_______")
-
+            if edit_num or edit_name:
+                print("_____Details Updated Succesfully_______")
+            else:
+                print("____Nothing TO Update____")
     def transfer_money(self, owner_account_number, receiver_account_number, amount_to_transfer):
         """Transfer money from one account to another.
         Args:
             owner_account_number (int): Sender's account number.
             receiver_account_number (int): Receiver's account number.
-            amount_to_transfer (int): Amount to transfer."""
-
+            amount_to_transfer (int): Amount to transfer.
+        """
         content = []
-        owner_found = False
-        rcvr_found = False
-
         with open("bank.txt", "r") as file:
             for line in file:
                 if line.strip():
                     account = json.loads(line)
                     if str(account.get(str("Account Number"))) == str(owner_account_number):
                         if int(account.get("Balance")) >= int(amount_to_transfer):
-                            owner_found = True
                             account["Balance"] -= amount_to_transfer
                         elif int(account.get("Balance")) < int(amount_to_transfer):
-                            owner_found = True 
                             print("Insufficient Balance!")
                             return
                         content.append(account)
                     elif str(account.get(str("Account Number"))) == str(receiver_account_number):
-                        rcvr_found = True
                         account["Balance"] += amount_to_transfer
                         content.append(account)
                     else:
                         content.append(account)
-        if not rcvr_found:
-            print("  ")
-            print("___Can Not Transfer As This Account Does Not Exist___")
-            print(" ")
-        elif not owner_found:
-            print(" ")
-            print("____You Don't Have This Account Enter Valid Account Number____")
-            print(" ")
-        else:
-            with open("bank.txt", "w") as file:
-                for i in content:
-                    file.write(json.dumps(i) + "\n")
-            print(f"______Done Transaction Of {amount_to_transfer} Rs:- ______")
+        with open("bank.txt", "w") as file:
+            for i in content:
+                file.write(json.dumps(i) + "\n")
+        print(f"Done Transaction Of {amount_to_transfer} Rs.")
     
     def deactivate_account(self, account_number):
         """Deactivate the specified bank account.
         Args:
-            account_number (int): Account number to deactivate."""
-
+            account_number (int): Account number to deactivate.
+        """
         content = []
         found = False
         with open("bank.txt", "r") as file:
@@ -214,7 +220,7 @@ class BankManagementSystem:
                     else:
                         content.append(account)
         if not found:
-            print("______Can Not Close This Account As Account Does Not Exist_____")
+            print(" _____Account Does Not Exist!______ ")
         else:
             with open("bank.txt", "w") as file:
                 for i in content:
@@ -224,7 +230,8 @@ class BankManagementSystem:
     def account_exist(self, account_number):
         """ Check whether the account exist or not.
         Args:
-         account_number (int): account number to check"""
+            account_number (int): account number to check.
+        """
         with open("bank.txt", "r") as file:
            for line in file:
                 if line.strip():
