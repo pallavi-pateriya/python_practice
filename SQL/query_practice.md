@@ -266,22 +266,40 @@ SELECT * FROM Customers WHERE first_name NOT LIKE '%n' AND country LIKE 'U%';
 ______JOIN________
 *** INNER JOIN ***
 1. Write a query to display each customer's first_name, last_name, and the item they ordered (only for customers who have placed an order).
-SELECT first_name, last_name, item FROM Customers C INNER JOIN Orders O on (C.customer_id = O.customer_id);
+SELECT C.first_name, C.last_name, O.item FROM Customers C INNER JOIN Orders O on (C.customer_id = O.customer_id);
 
 2. INNER JOIN with WHERE (Country Filter)
 Write a query to show the first_name, country, item, and amount for all orders placed by customers from the 'UK'.
-SELECT first_name, country, item, amount FROM Customers C INNER JOIN Orders O on (C.customer_id = O.customer_id) WHERE country = 'UK'
+SELECT C.first_name, C.country, O.item, O.amount FROM Customers C INNER JOIN Orders O on (C.customer_id = O.customer_id) WHERE C.country = 'UK'
 
 3. INNER JOIN with Amount & Age Conditions
 Write a query to find the first_name, age, and item where the order amount is greater than 350 and the customer's age is under 30.
-SELECT first_name, age, item FROM Customers C INNER JOIN Orders O on (C.customer_id = O.customer_id) WHERE amount > 350 AND age < 30;
+SELECT C.first_name, C.age, O.item FROM Customers C INNER JOIN Orders O on (C.customer_id = O.customer_id) WHERE O.amount > 350 AND C.age < 30;
 4. INNER JOIN with LIKE / IN
 Write a query to fetch the order_id, first_name, and item for orders where the item is either 'Keyboard' or 'Mouse' and the customer's first_name starts with 'J'.
-SELECT order_id, first_name, item FROM Customers C INNER JOIN Orders O on (C.customer_id = O.customer_id) WHERE item IN ('Keyboard', 'Mouse') AND first_name LIKE 'J%';
+SELECT O.order_id, C.first_name, O.item FROM Customers C INNER JOIN Orders O on (C.customer_id = O.customer_id) WHERE O.item IN ('Keyboard', 'Mouse') AND C.first_name LIKE 'J%';
 
 5. INNER JOIN + GROUP BY (Bonus Challenge)
 Write a query to display each customer's first_name and the total amount (SUM(amount)) they have spent across all their orders.*/
-SELECT first_name, SUM(amount) AS total_spent FROM Customers C INNER JOIN Orders O on (C.customer_id = O.customer_id) GROUP BY O.customer_id;
+SELECT C.first_name, SUM(O.amount) AS total_spent FROM Customers C INNER JOIN Orders O on (C.customer_id = O.customer_id) GROUP BY O.customer_id;
+
+6. List the first_name, last_name, and item for every order that has a matching customer.
+SELECT C.first_name, C.last_name, O.item FROM Customers C INNER JOIN Orders O ON (C.customer_id = O.customer_id);
+
+7. Find all orders with an amount greater than 300, showing order_id, item, amount, and the customer's country.
+SELECT O.order_id, O.item, O.amount, C.country FROM Customers C INNER JOIN Orders O ON C.customer_id = O.customer_id WHERE O.amount > 300;
+
+8. Display first_name, item, and status by joining Customers, Orders, and Shippings on their customer ID columns.
+SELECT C.first_name, O.item, S.status 
+FROM Customers C 
+INNER JOIN Orders O ON C.customer_id = O.customer_id 
+INNER JOIN Shippings S ON C.customer_id = S.customer;
+
+9. Retrieve the first_name, last_name, and order_id for customers from the UK who have placed an order.
+SELECT C.first_name, C.last_name, O.order_id FROM Customers C INNER JOIN Orders O ON C.customer_id = O.customer_id WHERE country = 'UK';
+
+10. List each customer's first_name, age, and status for rows where a matching record exists in Shippings.
+SELECT C.first_name, C.age, S.status FROM Customers C INNER JOIN Shippings S ON C.customer_id = S.customer;
 
 
 

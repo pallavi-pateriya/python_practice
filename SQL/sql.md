@@ -255,6 +255,18 @@ If the condition is true, the INNER JOIN merges the rows from both tables to for
 Summary 
 Use SQL INNER JOIN clause to merge rows from two tables based on a condition.
 
+1. *** LEFT JOIN (or LEFT OUTER JOIN) ***
+* **Definition:** Returns all records from the **left table** (table1), and the matching records from the **right table** (table2).
+* **Unmatched Rows:** If there is no match in the right table, the result will contain `NULL` values for the right table's columns.
+
+2. *** RIGHT JOIN (or RIGHT OUTER JOIN) ***
+* **Definition:** Returns all records from the **right table** (table2), and the matching records from the **left table** (table1).
+* **Unmatched Rows:** If there is no match in the left table, the result will contain `NULL` values for the left table's columns.
+
+3. *** FULL JOIN (or FULL OUTER JOIN) ***
+* **Definition:** Returns all records when there is a match in either the **left** (table1) or **right** (table2) table.
+* **Unmatched Rows:** Combines the results of both `LEFT` and `RIGHT` joins. Any unmatched rows from either side will display `NULL` values for the missing table's columns.
+
 
 
 
